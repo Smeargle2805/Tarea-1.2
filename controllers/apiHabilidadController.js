@@ -54,10 +54,46 @@ const postHabilidad = async ( req, res )=>{
     }
 }
 
+const putHabilidad = async (req, res)=>{
+
+    const params = [
+
+        req.body.nombre_habilidad, 
+        req.body.descripcion_habilidad 
+    ];
+    
+    let sql = ` update tbl_habilidad_pokemon
+    set nombre_habilidad = $1
+        descripcion_habilidad  = $2,
+        where id = $3
+    returning * `;
+
+    const result = await db.query(sql, params);
+    res.json(result); 
+
+}
+
+const deleteHabilidad = async (req, res)=>{
+
+    let params = [
+        req.params.id
+    ];
+
+    let sql = ` delete from tbl_habilidad_pokemon
+    where id = $1
+    returning * `;
+
+    const result = await db.query(sql, params);
+    res.json(result); 
+
+}
+
 module.exports = {
 
     getHabilidad,
     getIdHabilidad,
-    postHabilidad
+    postHabilidad,
+    putHabilidad,
+    deleteHabilidad
 
 }

@@ -54,10 +54,46 @@ const postRegion = async ( req, res )=>{
     }
 }
 
+const putRegion = async (req, res)=>{
+
+    const params = [
+
+        req.body.nombre_region, 
+        req.body.habitat 
+    ];
+    
+    let sql = ` update tbl_region_pokemon
+    set nombre_region = $1
+        habitat = $2,
+        where id = $3
+    returning * `;
+
+    const result = await db.query(sql, params);
+    res.json(result); 
+
+}
+
+const deleteRegion = async (req, res)=>{
+
+    let params = [
+        req.params.id
+    ];
+
+    let sql = ` delete from tbl_region_pokemon
+    where id = $1
+    returning * `;
+
+    const result = await db.query(sql, params);
+    res.json(result); 
+
+}
+
 module.exports = {
 
     getRegion,
     getIdRegion,
-    postRegion
+    postRegion,
+    putRegion,
+    deleteRegion
 
 }
