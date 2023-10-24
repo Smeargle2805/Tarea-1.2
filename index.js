@@ -6,4 +6,10 @@ app.use(express.json());
 const apiPokemon = require('./routes/apiPokemon');
 app.use('/api/pokemon', apiPokemon);
 
-app.listen(4000);
+const apiRegion = require('./routes/apiRegion');
+app.use('/api/region', apiRegion);
+
+const apiHabilidad = require('./routes/apiHabilidad');
+app.use('/api/habilidad', apiHabilidad);
+
+app.listen(3000);
